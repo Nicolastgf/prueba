@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mi página con Bootstrap</title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+  <!-- Estilos -->
+  <style>
+  html, body{
+    margin:0;
+    padding:0;
+  }
+  .btn-fucsia{
+    background:#ff00a6;color:#fff;font-weight:bold;border-radius:50px;padding:12px 25px;
+    text-transform:uppercase;display:inline-flex;align-items:center;gap:8px;border:none;transition:.3s
+  }
+  .btn-fucsia:hover{background:#d9008f;transform:scale(1.05);box-shadow:0 4px 10px rgba(0,0,0,.2)}
+  .btn-fucsia i{font-size:1.2em}
+
+  .img-perro{max-width:250px;max-height:250px;object-fit:cover}
+
+  .separator{display:flex;align-items:center;text-align:center;margin:20px 0;color:purple}
+  .separator::before,.separator::after{content:'';flex:1;border-bottom:2px dotted purple}
+  .separator:not(:empty)::before{margin-right:10px}
+  .separator:not(:empty)::after{margin-left:10px}
+  .separator i{color:purple;font-size:18px}
+
+  /* Cards informativas compactas con hover */
+  .info-card{
+    background:#fafafa;border:2px solid #6a2caf;border-radius:14px;
+    border-top-left-radius:20px;border-bottom-right-radius:20px;
+    padding:20px;transition:border-color .25s, box-shadow .25s, transform .25s,
+    border-top-left-radius .25s, border-bottom-right-radius .25s;
+  }
+  .info-card:hover{
+    border-color:#8d47ff;box-shadow:0 0 0 3px rgba(141,71,255,.12), 0 8px 18px rgba(106,44,175,.15);
+    transform:translateY(-3px);border-top-left-radius:36px;border-bottom-right-radius:36px;
+  }
+  .info-icon{font-size:1.5rem;color:#6a2caf;}
+  .info-title{color:#6a2caf;font-weight:600;font-size:1rem;}
+  .info-card p{font-size:0.85rem;line-height:1.3;}
+
+  /* Cards de productos */
+  .product-card{
+    border:0;
+    border-radius:16px;
+    box-shadow:0 6px 20px rgba(0,0,0,.06);
+    height:auto; /* antes tenías height:100% */
+  }
+  .product-card .card-img-top{
+    height:140px; /* bájalo más si quieres, ej. 120px */
+    object-fit:cover;
+    border-top-left-radius:16px;
+    border-top-right-radius:16px;
+  }
+  .product-card .card-title{font-weight:800}
+  .product-card:hover{transform:translateY(-4px);box-shadow:0 12px 26px rgba(0,0,0,.12);transition:.25s}
+  .dot-rule{height:1px;background:repeating-linear-gradient(90deg, rgba(128,0,128,.35) 0 6px, transparent 6px 12px)}
+
+  /* Carrusel: desktop -> cover; mobile -> contain (sin recortes) */
+  #carouselExampleIndicators .carousel-item img{
+    width:100%;
+    height: clamp(200px, 32vh, 380px);
+    object-fit: cover;
+    display:block;
+  }
+  @media (max-width: 575.98px){
+    #carouselExampleIndicators .carousel-item img{
+      height:auto !important;        /* mantiene proporción */
+      max-height:55vh;               /* límite de alto en móviles */
+      object-fit:contain !important; /* evita recorte */
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="container py-0">
+  <div class="row align-items-center py-2" style="background-color:#FBB03B;">
+    <div class="col-md-6">
+      <h1 class="my-0 lh-sm" style="color:purple; font-size:clamp(22px,3.2vw,32px);">
+        ¿Sabías que puedes crear ropa increíble para tu perro sin gastar fortunas en tiendas?
+      </h1>
+    </div>
+    <div class="col-md-6 text-center">
+      <img src="./img/molde.png" class="img-fluid rounded" style="max-height:160px; object-fit:cover;" alt="">
+    </div>
+  </div>
+</div>
+
+<div>
+  <h3 class="fs-5 mt-3">¡Ahorra dinero y crea diseños únicos para tu mascota!</h3>
+</div>
+
+<!-- Carrusel -->
+<div class="mt-4">
+  <div
+    id="carouselExampleIndicators"
+    class="carousel slide"
+    data-bs-ride="carousel"
+    data-bs-interval="7000"
+    data-bs-pause="hover"
+    data-bs-touch="true"
+  >
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="./img/molde1.jpeg" class="d-block w-100" alt="Molde 1" loading="lazy" decoding="async">
+      </div>
+      <div class="carousel-item">
+        <img src="./img/molde2.jpeg" class="d-block w-100" alt="Molde 2" loading="lazy" decoding="async">
+      </div>
+      <div class="carousel-item">
+        <img src="./img/molde3.jpeg" class="d-block w-100" alt="Molde 3" loading="lazy" decoding="async">
+      </div>
+    </div>
+
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev" aria-label="Anterior">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next" aria-label="Siguiente">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    </button>
+  </div>
+</div>
+
+
+    <!-- CTA #1 -> lleva a #comprar -->
+    <div class="mt-4 text-center">
+      <a href="#comprar" class="btn-fucsia"><i class="bi bi-hand-thumbs-up-fill"></i> COMPRAR AHORA</a>
+    </div>
+
+    <div class="separator">
+      <i class="bi bi-star-fill"></i>
+    </div>
+
+    <div class="row align-items-center mt-5">
+      <div class="col-md-8">
+        <h4 class="fw-bold text-uppercase" style="color:purple;padding-top:10px;">
+          Diseña a tu gusto, ahorra dinero, aprovecha retazos de tela y vende tus creaciones para generar ingresos extra
+        </h4>
+      </div>
+     
+    </div>
+
+    <div class="card p-4 mt-4" style="background-color:#3b005a;border-radius:20px;color:#fff;">
+      <div class="row align-items-center">
+        <div class="col-md-5 text-center">
+          <img src="./img/libro1.png" alt="Imagen del producto" class="img-fluid" style="border-radius:10px;">
+        </div>
+        <div class="col-md-7">
+          <h4 style="color:#ff8800;font-weight:bold;font-size:3rem;line-height:1;">+MAS DE</h4>
+          <h4 style="color:#fff;font-weight:bold;font-size:4rem;line-height:1;">120</h4>
+          <h4 style="color:#fff;font-weight:bold;font-size:3rem;line-height:1;">PARA QUE TU PERRO SE VEA INCREIBLE HOY MISMO!</h4>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3 CARDS CON HOVER (info) -->
+    <div class="mt-5">
+      <div class="row row-cols-1 row-cols-md-3 g-4 text-center">
+        <div class="col">
+          <div class="h-100 info-card">
+            <i class="bi bi-cake2-fill info-icon"></i>
+            <h5 class="mt-3 info-title">Nuestros moldes</h5>
+            <p class="mb-0">✅ Moldes de alta calidad, explicado paso a paso</p>
+            <p class="mb-0">✅ Archivos 100% digitales en PDF, tallas L, M, S, XL, XS, XXL</p>
+            <p class="mb-0">✅ Ajuste perfecto, desarrollados y probados por profesionales</p>
+          </div>
+        </div>
+        <div class="col">
+          <div class="h-100 info-card">
+            <i class="bi bi-shop info-icon"></i>
+            <h5 class="mt-3 info-title">Emprende y genera ingresos</h5>
+            <p class="mb-0">✅ Patrones en tendencia a nivel mundial</p>
+            <p class="mb-0">✅ Moldes que no encuentras fácilmente en internet</p>
+            <p class="mb-0">✅ Emprende desde casa, sin gastos extra</p>
+          </div>
+        </div>
+        <div class="col">
+          <div class="h-100 info-card">
+            <i class="bi bi-cash-coin info-icon"></i>
+            <h5 class="mt-3 info-title">Ahorra tiempo y dinero</h5>
+            <p class="mb-0">✅ Crea ropa para mascotas a una fracción del costo</p>
+            <p class="mb-0">✅ Descarga, imprime y corta hoy mismo</p>
+            <p class="mb-0">✅ Usa retazos de tela y reduce desperdicio</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA #2 -> lleva a #comprar -->
+    <div class="mt-4 text-center">
+      <a href="#comprar" class="btn-fucsia">¡APROVECHA TODO AHORA!</a>
+    </div>
+
+    <!-- ====== 7 CARDS (4 arriba + 3 centradas abajo) ====== -->
+    <div class="mt-5">
+      <h3 class="mb-3 fw-bold" style="color:purple">Paquetes incluidos</h3>
+      <div class="dot-rule mb-4"></div>
+
+      <!-- Fila 1: 4 cards -->
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4">
+        <div class="col">
+          <div class="card product-card">
+            <img src="img/1.jpeg" class="card-img-top" alt="Imagens PNG" loading="lazy">
+            <div class="card-body">
+              <h5 class="card-title">Modulo 1</h5>
+              <p class="card-text mb-0">Explicación paso a paso. ¿Cómo tomar las medidas del perro? Tallas y consejos para imprimir moldes.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card product-card">
+            <img src="img/2.jpeg" class="card-img-top" alt="Festas Prontas" loading="lazy">
+            <div class="card-body">
+              <h5 class="card-title">Modulo 2</h5>
+              <p class="card-text mb-0">Moldes listos para imprimir y confeccionar: botas, calzón celos, camisetas, chaleco, disfraces, gorra y más.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card product-card">
+            <img src="img/3.jpeg" class="card-img-top" alt="Topos de Bolo" loading="lazy">
+            <div class="card-body">
+              <h5 class="card-title">Modulo 3</h5>
+              <p class="card-text mb-0">Ropa express para perritos. Fabrica en minutos: deportivo, conjunto bailarina, arnés, impermeables y más.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card product-card">
+            <img src="img/4.jpeg" class="card-img-top" alt="Topos de Bolo Luxo" loading="lazy">
+            <div class="card-body">
+              <h5 class="card-title">Modulo 4</h5>
+              <p class="card-text mb-0">Primavera – Verano: polo, jardinera, vestido Canel y más.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Fila 2: 3 cards centradas -->
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4 justify-content-center mt-2">
+        <div class="col">
+          <div class="card product-card">
+            <img src="img/5.jpeg" class="card-img-top" alt="Stickers y Etiquetas" loading="lazy">
+            <div class="card-body">
+              <h5 class="card-title">Modulo 5</h5>
+              <p class="card-text mb-0">Otoño – Invierno: abrigo corderoy, campera invernal, chaqueta otoñal y más.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card product-card">
+            <img src="img/6.jpeg" class="card-img-top" alt="Invitaciones" loading="lazy">
+            <div class="card-body">
+              <h5 class="card-title">Modulo 6</h5>
+              <p class="card-text mb-0">Vestidos paso a paso: Aurora, Charlotte, Coquita y más.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card product-card">
+            <img src="img/7.jpeg" class="card-img-top" alt="Fondos y Banners" loading="lazy">
+            <div class="card-body">
+              <h5 class="card-title">Modulo 7</h5>
+              <p class="card-text mb-0">Juguetes, camas y bolsos: huesitos, cama redonda imperial, bolso iglú y más.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ====== /7 CARDS ====== -->
+
+    <!-- Separador al final de las 7 cards -->
+    <div class="separator my-5">
+      <i class="bi bi-star-fill"></i>
+    </div>
+
+    <!-- ====== SECCIÓN BONOS ====== -->
+    <style>
+      .text-purple{ color:#6a2caf; }
+      .bonus-progress{ height:32px; background:#e9e6f3; border-radius:999px; overflow:visible; }
+      .bonus-progress .progress-bar{ background:#ff00a6; border-radius:999px; position:relative; font-weight:700; }
+      .bonus-progress .left-label,
+      .bonus-progress .right-label{ position:absolute; top:50%; transform:translateY(-50%); font-size:.95rem; }
+      .bonus-progress .left-label{ left:14px; color:#fff; }
+      .bonus-progress .right-label{ right:14px; color:#fff; }
+      .bonus-card{ border:0; border-radius:18px; box-shadow:0 8px 22px rgba(0,0,0,.08); }
+      .bonus-card .card-img-top{ height:220px; object-fit:contain; padding:12px; }
+      .bonus-card .card-title{ font-weight:800; color:#4b2a94; }
+      .guarantee-badge{ width:220px; height:220px; border-radius:50%; background:#fff; border:8px solid #12b3e6;
+        display:flex; align-items:center; justify-content:center; margin-inline:auto; }
+      .guarantee-badge .inner{ width:85%; height:85%; border:2px solid #12b3e6; border-radius:50%;
+        display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:10px; }
+      .guarantee-badge .top{ font-size:.9rem; color:#7a7a7a; font-weight:700; }
+      .guarantee-badge .days{ color:#ff00a6; font-weight:900; font-size:2.6rem; line-height:1; }
+      .guarantee-badge .foot{ font-size:.75rem; color:#7a7a7a; font-weight:700; }
+      @media (min-width: 768px){ .guarantee-title{ font-size:2.2rem; } }
+    </style>
+
+    <div class="bonus-section my-5">
+      <h4 class="text-center fw-bold text-uppercase text-purple mb-4">
+        BENEFICIOS ESPECIALES SOLO POR HOY
+      </h4>
+
+      <div class="progress bonus-progress mb-5">
+        <div class="progress-bar" role="progressbar" style="width:85%;" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100">
+          <span class="left-label">93 Personas que adquirieron el bono ahora!</span>
+        
+        </div>
+      </div>
+
+      <div class="row g-4 justify-content-center">
+        <div class="col-md-5">
+          <div class="card h-100 text-center bonus-card">
+            <img src="img/bono1.png" alt="Super Kit 1" class="card-img-top" loading="lazy">
+            <div class="card-body">
+              <h5 class="card-title">BONO 1</h5>
+              <p class="card-text">Cada vez son más los tratos especiales a nuestros amigos de cuatro patas y en ocasiones esto se traduce en vestirlos para que luzcan fabulosos en todo momento. Valorado en 10 Dólares, hoy de regalo.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-5">
+          <div class="card h-100 text-center bonus-card">
+            <img src="img/bono2.png" alt="Super Kit 2" class="card-img-top" loading="lazy">
+            <div class="card-body">
+              <h5 class="card-title">BONO 2</h5>
+              <p class="card-text">Este curso te enseña paso a paso a crear la casita para tus perritos. Valorado en 10 Dólares, hoy de regalo.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ====== /SECCIÓN BONOS ====== -->
+
+    <div class="my-5">
+      <div class="separator mb-4"><i class="bi bi-star-fill"></i></div>
+
+      <div class="guarantee-wrap shadow-sm">
+        <div class="row g-4 align-items-center">
+          <div class="col-md-5 text-center">
+            <div class="guarantee-badge">
+              <div class="inner">
+                <div class="top">GARANTÍA DE</div>
+                <div class="days">7 DÍAS</div>
+                <i class="bi bi-star-fill text-info my-1"></i>
+                <div class="foot">O TE DEVOLVEMOS EL DINERO</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-7">
+            <h2 class="guarantee-title mb-2">Garantía de 7 días</h2>
+            <div class="guarantee-hr" style="height:6px;background:#12b3e6;border-radius:999px;width:100%;margin:.5rem 0 1rem;"></div>
+            <h5 class="guarantee-sub mb-3" style="color:#12b3e6;font-weight:800;text-transform:uppercase;">Riesgo cero y 100% de satisfacción</h5>
+            <p class="mb-0">
+              Tu satisfacción o tu dinero de vuelta. Si no quedas conforme con el contenido ofrecido,
+              te devolvemos el 100% sin vueltas: solo envíanos un e-mail o mensaje por WhatsApp dentro
+              de los 7 días y procesamos el reembolso. ¡Compra con tranquilidad!
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="separator mt-4"><i class="bi bi-star-fill"></i></div>
+    </div>
+
+<!-- OPINIONES (Carrusel de 3) -->
+<style>
+  .opiniones-title{
+    color:#6a2caf; letter-spacing:.5px; font-weight:900; text-transform:uppercase;
+  }
+  .sshot-frame{
+    background:#fff; border:2px solid #e3d7ff; border-radius:18px; padding:8px;
+    box-shadow:0 10px 24px rgba(0,0,0,.08);
+    /* Altura base y recorte de ~1 cm */
+    --alto-base: 520px;                   /* ajusta si deseas más/menos alto en desktop */
+    height: calc(var(--alto-base) - 1cm); /* “1 cm” menos */
+  }
+  .sshot-frame img{
+    display:block; width:100%; height:100%;
+    object-fit:cover; border-radius:12px; aspect-ratio:9/16;
+  }
+  @media (max-width: 575.98px){
+    .sshot-frame{ --alto-base: 460px; }   /* un poco más bajo en móviles */
+  }
+</style>
+
+<div class="my-5">
+  <div class="text-center mb-4">
+    <h4 class="opiniones-title">¡Mira la opinión de quienes ya tienen acceso a nuestros archivos!</h4>
+  </div>
+
+  <div id="opinionesCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="7000" data-bs-pause="hover" data-bs-touch="true">
+    <!-- Indicadores -->
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#opinionesCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#opinionesCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    </div>
+
+    <div class="carousel-inner">
+      <!-- Slide 1 (3 testimonios) -->
+      <div class="carousel-item active">
+        <div class="container">
+          <div class="row g-4 justify-content-center">
+            <div class="col-10 col-md-4">
+              <div class="sshot-frame"><img src="img/testimonio1.jpeg" alt="Testimonio WhatsApp 1" loading="lazy"></div>
+            </div>
+            <div class="col-10 col-md-4 d-none d-md-block">
+              <div class="sshot-frame"><img src="img/testimonio2.jpeg" alt="Testimonio WhatsApp 2" loading="lazy"></div>
+            </div>
+            <div class="col-10 col-md-4 d-none d-md-block">
+              <div class="sshot-frame"><img src="img/testimonio3.jpeg" alt="Testimonio WhatsApp 3" loading="lazy"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 2 (3 testimonios más) -->
+      <div class="carousel-item">
+        <div class="container">
+          <div class="row g-4 justify-content-center">
+            <div class="col-10 col-md-4">
+              <div class="sshot-frame"><img src="img/testimonio4.jpeg" alt="Testimonio WhatsApp 4" loading="lazy"></div>
+            </div>
+            <div class="col-10 col-md-4 d-none d-md-block">
+              <div class="sshot-frame"><img src="img/testimonio5.jpeg" alt="Testimonio WhatsApp 5" loading="lazy"></div>
+            </div>
+            <div class="col-10 col-md-4 d-none d-md-block">
+              <div class="sshot-frame"><img src="img/testimonio6.jpeg" alt="Testimonio WhatsApp 6" loading="lazy"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Controles -->
+    <button class="carousel-control-prev" type="button" data-bs-target="#opinionesCarousel" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Anterior</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#opinionesCarousel" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Siguiente</span>
+    </button>
+  </div>
+</div>
+
+
+    <!-- ====== OFERTA + PREGUNTAS FRECUENTES ====== -->
+    <style>
+      .offer-card{ border-radius:24px; overflow:hidden; background:#fff; box-shadow:0 12px 28px rgba(0,0,0,.08); }
+      .offer-top{ background:#ff4a58; color:#fff; font-weight:800; text-align:center; padding:.9rem 1rem; text-transform:uppercase; }
+      .offer-sub{ background:#fff6de; color:#6a2caf; font-weight:900; text-align:center; padding:.9rem 1rem; font-size:1.5rem; }
+      .offer-count{ background:#6a2caf; color:#fff; text-align:center; padding:.6rem 1rem; font-weight:700; letter-spacing:.5px; display:flex; gap:1.5rem; justify-content:center; }
+      .price-box{ padding:1.25rem 1.25rem 1.5rem; text-align:center; }
+      .old-price{ color:#f44336; font-size:1.6rem; font-weight:900; text-decoration:line-through; margin:.6rem 0; }
+      .today-text{ color:#5921a2; font-weight:800; letter-spacing:.5px; }
+      .main-price{ color:#5921a2; font-size:3.3rem; font-weight:900; line-height:1; }
+      .currency{ color:#5921a2; font-weight:900; margin-right:.25rem; }
+      .installments{ color:#6b6b6b; font-size:.95rem; }
+      .btn-buy{ background:#6a2caf; border:none; color:#fff; font-weight:800; border-radius:16px; padding:.9rem 1.25rem; display:inline-flex; align-items:center; gap:.5rem; }
+      .btn-buy:hover{ background:#4f1a83; color:#fff; }
+      .faq-title{ color:#5921a2; font-weight:900; }
+      .accordion-button{ font-weight:600; color:#5921a2; }
+      .accordion-button:not(.collapsed){ background:#f5efff; color:#5921a2; }
+      .accordion-button:focus{ box-shadow:0 0 0 .2rem rgba(106,44,175,.15); }
+      @media (max-width: 991.98px){ .main-price{ font-size:2.7rem; } }
+    </style>
+
+    <!-- Marcamos esta sección con el ID para que los botones aterricen aquí -->
+    <section id="comprar" class="py-5">
+      <div class="row g-4 align-items-start">
+        <!-- Oferta -->
+        <div class="col-lg-5">
+          <div class="offer-card">
+            <div class="offer-top">¡Oferta por tiempo limitado!</div>
+            <div class="offer-sub">¡Súper Descuento!</div>
+
+            <div class="offer-count">
+              <div><span id="mm">00</span><div style="font-weight:600;opacity:.9">Minutos</div></div>
+              <div><span id="ss">00</span><div style="font-weight:600;opacity:.9">Segundos</div></div>
+            </div>
+
+            <div class="price-box">
+              <div class="old-price">de $ 39,99</div>
+              <div class="today-text">HOY POR:</div>
+              <div class="d-flex justify-content-center align-items-start gap-1 my-1">
+                <div class="currency">$</div>
+                <div class="main-price">9,99</div>
+              </div>
+
+              <div class="d-grid mt-4">
+                <a href="https://go.hotmart.com/G85494191K?ap=8617" class="btn btn-buy">
+                  <i class="bi bi-cart-check"></i> COMPRAR AHORA
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ -->
+        <div class="col-lg-7">
+          <h3 class="faq-title mb-3">Preguntas frecuentes</h3>
+          <div class="accordion" id="faq">
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#q1">
+                  ¿Para quién es este pack?
+                </button>
+              </h2>
+              <div id="q1" class="accordion-collapse collapse show" data-bs-parent="#faq">
+                <div class="accordion-body">
+                  Para quien quiere crear ropa para mascotas: dueños, emprendedores y amantes del DIY, con moldes listos para imprimir.
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#q2">
+                  ¿Cómo recibo los archivos?
+                </button>
+              </h2>
+              <div id="q2" class="accordion-collapse collapse" data-bs-parent="#faq">
+                <div class="accordion-body">
+                  Inmediatamente por e-mail con enlaces de descarga. También puedes acceder desde tu cuenta.
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#q3">
+                  ¿Por cuánto tiempo tengo acceso?
+                </button>
+              </h2>
+              <div id="q3" class="accordion-collapse collapse" data-bs-parent="#faq">
+                <div class="accordion-body">
+                  Acceso de por vida a las descargas y futuras actualizaciones del pack.
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#q4">
+                  ¿Qué formas de pago aceptan?
+                </button>
+              </h2>
+              <div id="q4" class="accordion-collapse collapse" data-bs-parent="#faq">
+                <div class="accordion-body">
+                  Tarjetas de crédito/débito, billeteras digitales y transferencias según tu país.
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#q5">
+                  ¿La compra es segura?
+                </button>
+              </h2>
+              <div id="q5" class="accordion-collapse collapse" data-bs-parent="#faq">
+                <div class="accordion-body">
+                  La compra es totalmente segura, tus datos estan encriptados, con garantia asegurada.
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#q6">
+                  ¿Viene listo para imprimir?
+                </button>
+              </h2>
+              <div id="q6" class="accordion-collapse collapse" data-bs-parent="#faq">
+                <div class="accordion-body">
+                  Sí, los moldes vienen en PDF con talles y medidas listos para imprimir.
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#q7">
+                  ¿Qué papel recomiendan para imprimir?
+                </button>
+              </h2>
+              <div id="q7" class="accordion-collapse collapse" data-bs-parent="#faq">
+                <div class="accordion-body">
+                  A4 o carta 75–90 g para moldes; cartulina si querés más rigidez al recortar.
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#q8">
+                  ¿En donde me llega el pack?
+                </button>
+              </h2>
+              <div id="q8" class="accordion-collapse collapse" data-bs-parent="#faq">
+                <div class="accordion-body">
+                  El acceso al pack de molde te llega al correo electronico Inmediatamente realizada la compra, se ingreasa a nuestra plataforma de estudio Hotmart la mas grande de Latam en donde tendras acceso de por vida
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- ====== /OFERTA + PREGUNTAS FRECUENTES ====== -->
+
+    <!-- ====== MÉTODOS DE PAGO / COMPRA SEGURA ====== -->
+    <style>
+      .secure-wrap{background:#f8f5ff;border:2px solid #e3d7ff;border-radius:20px;padding:18px 16px;}
+      .secure-badge{display:flex;align-items:center;gap:12px;}
+      .secure-badge .icon{
+        background:#6a2caf;color:#fff;border-radius:14px;
+        width:46px;height:46px;display:flex;align-items:center;justify-content:center;
+      }
+      .secure-badge .title{font-weight:900;text-transform:uppercase;color:#6a2caf;}
+      .secure-badge .title .accent{color:#ff00a6;}
+      .pay-list{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:12px;}
+      .pay-pill{
+        background:#fff;border:2px solid #e3d7ff;border-radius:12px;padding:10px 14px;
+        min-width:120px;text-align:center;font-weight:800;color:#4b2a94;
+        box-shadow:0 6px 14px rgba(106,44,175,.06);
+      }
+      .pay-pill img{height:22px;display:block;margin:auto;}
+      .worldwide{margin-top:14px;text-align:center;color:#5b5b5b;font-weight:700;}
+      @media (min-width:768px){.secure-wrap{padding:22px 24px;}}
+    </style>
+
+    <div class="my-5">
+      <div class="secure-wrap">
+        <div class="row align-items-center g-3">
+          <div class="col-lg-4">
+            <div class="secure-badge justify-content-center justify-content-lg-start">
+              <div class="icon"><i class="bi bi-shield-lock-fill fs-5"></i></div>
+              <div class="title">Compra 100% <span class="accent">Segura</span></div>
+            </div>
+          </div>
+          <div class="col-lg-8">
+            <div class="pay-list">
+              <div class="pay-pill">VISA</div>
+              <div class="pay-pill">MasterCard</div>
+              <div class="pay-pill">American&nbsp;Express</div>
+              <div class="pay-pill">PayPal</div>
+              <div class="pay-pill">Discover</div>
+              <div class="pay-pill">Mercado&nbsp;Pago</div>
+            </div>
+          </div>
+        </div>
+        <div class="worldwide">DISPONIBLE PARA TODO EL MUNDO</div>
+      </div>
+    </div>
+    <!-- ====== /MÉTODOS DE PAGO ====== -->
+
+  </div><!-- /container -->
+
+  <!-- ====== FOOTER ====== -->
+  <style>
+    .site-footer{background:#4b2a94;color:#e9e6f3;}
+    .site-footer a{color:#e9e6f3;text-decoration:none}
+    .site-footer a:hover{color:#fff;text-decoration:underline}
+    .footer-hr{border:0;border-top:1px solid rgba(255,255,255,.35);margin:.75rem 0 1rem}
+    .badge-box{
+      background:#fff;border-radius:10px;padding:6px 10px;margin-left:10px;display:inline-flex;
+      align-items:center;gap:8px;color:#4b2a94;font-weight:800;border:2px solid #e3d7ff
+    }
+    .badge-box img{height:24px}
+    .back-to-top{
+      position:fixed;right:18px;bottom:18px;z-index:999;border:0;border-radius:50%;
+      width:44px;height:44px;background:#6a2caf;color:#fff;box-shadow:0 8px 18px rgba(0,0,0,.25);
+      display:none;align-items:center;justify-content:center
+    }
+    .back-to-top:hover{background:#541f92}
+  </style>
+
+  <footer class="site-footer mt-5">
+    <div class="container py-4">
+      <div class="text-center small">
+        © 2025 <strong>Tu Marca</strong> | Todos los derechos reservados
+      </div>
+
+      <div class="footer-hr"></div>
+
+      <div class="row align-items-center gy-3">
+        <div class="col-md-6">
+          <ul class="list-unstyled mb-0 small">
+            <li><a href="#privacidad">Política de privacidad</a></li>
+            <li><a href="#terminos">Términos y condiciones</a></li>
+          </ul>
+        </div>
+        <div class="col-md-6 text-md-end">
+          <span class="badge-box">
+            <img src="img/ssl.png" alt="" onerror="this.style.display='none'">
+            COMPRA SEGURA • SSL
+          </span>
+          <span class="badge-box">
+            <img src="img/google-safe.png" alt="" onerror="this.style.display='none'">
+            Verificado por Google
+          </span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <button id="backTop" class="back-to-top" aria-label="Volver arriba">
+    <i class="bi bi-arrow-up"></i>
+  </button>
+  <!-- ====== /FOOTER ====== -->
+
+  <!-- JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Cuenta regresiva de la oferta -->
+  <script>
+    (function(){
+      const minutosIniciales = 10; // ajusta acá
+      let restante = minutosIniciales * 60;
+      const mm = document.getElementById('mm');
+      const ss = document.getElementById('ss');
+      if(!mm || !ss) return;
+      function tick(){
+        const m = Math.max(0, Math.floor(restante / 60));
+        const s = Math.max(0, restante % 60);
+        mm.textContent = String(m).padStart(2,'0');
+        ss.textContent = String(s).padStart(2,'0');
+        if(restante > 0) restante--; else clearInterval(timer);
+      }
+      tick();
+      const timer = setInterval(tick, 1000);
+    })();
+
+    // Botón volver arriba
+    const backTop = document.getElementById('backTop');
+    window.addEventListener('scroll', () => {
+      backTop.style.display = window.scrollY > 400 ? 'flex' : 'none';
+    });
+    backTop.addEventListener('click', () => window.scrollTo({top:0, behavior:'smooth'}));
+  </script>
+</body>
+</html>
